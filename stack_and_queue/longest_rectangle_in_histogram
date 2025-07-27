@@ -1,0 +1,22 @@
+class Solution(object):
+    def largestRectangleArea(self, heights):
+        """
+        :type heights: List[int]
+        :rtype: int
+        """
+        st=[]
+        maxarea=0
+        for i in range(len(heights)) :
+            while (st and heights[st[-1]]>heights[i]):
+                element= st.pop()
+                nse=i
+                pse = st[-1] if st else -1
+                maxarea = max(heights[element] * (nse - pse - 1), maxarea)
+        
+            st.append(i)
+        while st :
+            nse=len(heights)
+            element=st.pop()
+            pse = st[-1] if st else -1
+            maxarea=max(maxarea,(nse-pse-1)*heights[element])
+        return maxarea
